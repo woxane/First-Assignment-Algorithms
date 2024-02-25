@@ -49,8 +49,29 @@ public class Exercises2 {
     */
 
     public int romanToInt(String s) {
-        // TODO
-        return 0;
+        Map<Character, Integer> romanToInteger = new HashMap<>();
+        romanToInteger.put('I', 1);
+        romanToInteger.put('V', 5);
+        romanToInteger.put('X', 10);
+        romanToInteger.put('L', 50);
+        romanToInteger.put('C', 100);
+        romanToInteger.put('D', 500);
+        romanToInteger.put('M', 1000);
+
+        int result = 0;
+        int prevValue = 0;
+
+        for (int i = s.length() - 1; i >= 0; i--) {
+            int curValue = romanToInteger.get(s.charAt(i));
+            if (curValue < prevValue) {
+                result -= curValue;
+            } else {
+                result += curValue;
+            }
+            prevValue = curValue;
+        }
+
+        return result;
     }
 
     /*
@@ -71,5 +92,9 @@ public class Exercises2 {
         int target = 9;
         int[] result = exercises.twoSum(nums, target);
         System.out.println("Two Sum: [" + result[0] + ", " + result[1] + "]");
+        // Test romanToInt
+        String romanNumeral = "XXVII";
+        int intValue = exercises.romanToInt(romanNumeral);
+        System.out.println("Roman to Integer: " + intValue);
     }
 }
